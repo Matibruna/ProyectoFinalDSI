@@ -1,14 +1,16 @@
 //Clase Pedido
 export class Pedido{
     private cantComensales: number;
-    private fechaHoraPedido: string;
+    private fechaHora: Date;
     private nroPedido: number;
+    private mesa: number;
     private detalles: DetalleDePedido[];
 
-    constructor(cantC: number, fechaHoraPedido: string, nroPedido: number){
+    constructor(cantC: number, fechaHoraPedido: Date, nroPedido: number, mesa: number){
         this.cantComensales=cantC;
-        this.fechaHoraPedido=fechaHoraPedido;
+        this.fechaHora=fechaHoraPedido;
         this.nroPedido=nroPedido;
+        this.mesa=mesa;
         this.detalles = DetalleDePedido[0];
     }
 
@@ -16,8 +18,12 @@ export class Pedido{
         return this.cantComensales;
     }
 
+    getMesa(){
+        return this.mesa;
+    }
+
     getFechaHoraPedido(){
-        return this.fechaHoraPedido;
+        return this.fechaHora;
     }
 
     getNroPedido(){
@@ -36,45 +42,51 @@ export class Pedido{
 //Clase DetalleDePedido
 export class DetalleDePedido{
     private cantidad: number;
-    private hora: string
+    private nombreProducto: string;
+    private fechaHora: Date;
     private precio: number;
-    private historialEstado: HistorialEstado;
+    private historialEstado: HistorialEstado[];
   
   
     // Constructor de un nuevo objeto, se inicializa con los parametros CANTIDAD, HORA, PRECIO y crea un objeto HistorialEstado con Estado inicial X.
-    constructor(cant: number, fechaHora: string, precio: number){
+    constructor(cant: number, fechaHora: Date, precio: number, nomP: string){
         this.cantidad = cant;
-        this.hora = fechaHora;
+        this.fechaHora = fechaHora;
         this.precio = precio;
-        this.historialEstado = new HistorialEstado(fechaHora, new PendienteDePreparacion())
+        this.nombreProducto = nomP;
+        this.historialEstado.push(new HistorialEstado(fechaHora, new PendienteDePreparacion('pendPrep', 'detalle')))
     }   
   
     getCantidad(){
         return this.cantidad;
     }
     
-    getHora(){
-        return this.hora;
+    getfechaHora(){
+        return this.fechaHora;
     }
   
     getPrecio(){
         return this.precio;
     }
   
-    getEstado(){
-        return this.historialEstado.getEstado();
+    getUltimoEstado(){
+        return this.historialEstado[this.historialEstado.length-1].getEstado();
+    }
+
+    getUltimoHistorial(){
+        return this.historialEstado[this.historialEstado.length-1]
     }
   
-    setFinUltimoHistorial(fechaHoraFin: string){
-        this.historialEstado.setHoraFin(fechaHoraFin);
+    setFinUltimoHistorial(fechaHoraFin: Date){
+        this.getUltimoHistorial().setHoraFin(fechaHoraFin);
     }
   
     setUltimoHistorial(h: HistorialEstado){
-        this.historialEstado = h; 
+        this.historialEstado.push(h); 
     }
   
-    finalizar(fechaHora: string){
-        this.getEstado().finalizar(this, fechaHora);
+    finalizar(fechaHora: Date){
+        this.getUltimoEstado().finalizar(this, fechaHora);
     }
   
     notificar(){
@@ -82,14 +94,14 @@ export class DetalleDePedido{
     }
   
   }
-  
+
   // HistorialEstado, Guarda la hora de inicio y fin por el que una clase paso por cierto estado, se INICIALIZA pasandole la fechaHoraInicio y el ESTADO por parametro.
 export class HistorialEstado{
-    private fechaHoraInicio: string;
-    private fechaHoraFin: string;
+    private fechaHoraInicio: Date;
+    private fechaHoraFin: Date;
     private estado: Estado;
   
-    constructor(horaI: string, estado: Estado){
+    constructor(horaI: Date, estado: Estado){
         this.fechaHoraInicio = horaI;
         this.estado = estado;        
     }
@@ -102,7 +114,7 @@ export class HistorialEstado{
         return this.fechaHoraInicio;
     }
   
-    setHoraFin(horaF: string){
+    setHoraFin(horaF: Date){
         this.fechaHoraFin = horaF;
     }
   
@@ -110,35 +122,36 @@ export class HistorialEstado{
         return (this.fechaHoraFin == null)
     }
 }
-  
-  
 
 //Interfaz Estado, compone todos los metodos que las clases Estados Concretos deberan implementar.
 interface Estado{
 
     crearEstado();
-    preparar(detalle: DetalleDePedido, fechaHoraFin: string);
-    finalizar(detalle: DetalleDePedido, fechaHoraFin: string);
-    notificar(detalle: DetalleDePedido, fechaHoraFin: string);
+    preparar(detalle: DetalleDePedido, fechaHoraFin: Date);
+    finalizar(detalle: DetalleDePedido, fechaHoraFin: Date);
+    notificar(detalle: DetalleDePedido, fechaHoraFin: Date);
   
   }
   
 //ESTADOS CONCRETOS, Clases que Implementan la interfaz ESTADO.
 export class PendienteDePreparacion implements Estado{
-  
-    constructor(){
-  
+    nombre: string;
+    ambito: string;
+
+    constructor(n: string, a: string){
+        this.nombre = n;
+        this.ambito = a;
     }
   
     crearEstado(){
-        return new EnPreparacion();
+        return new EnPreparacion('enPrep', 'detalle');
     }
   
-    crearHistorial(fechaHoraInicio: string, estado: Estado){
+    crearHistorial(fechaHoraInicio: Date, estado: Estado){
         return new HistorialEstado(fechaHoraInicio, estado);
     }
   
-    preparar(detalle: DetalleDePedido, fechaHoraFin: string){
+    preparar(detalle: DetalleDePedido, fechaHoraFin: Date){
         var estado: Estado;
         var historial: HistorialEstado;
   
@@ -153,34 +166,37 @@ export class PendienteDePreparacion implements Estado{
         return true;
     }
   
-    finalizar(detalle: DetalleDePedido, fechaHoraFin: string){
+    finalizar(detalle: DetalleDePedido, fechaHoraFin: Date){
         return false;
     }
   
-    notificar(detalle: DetalleDePedido, fechaHoraFin: string){
+    notificar(detalle: DetalleDePedido, fechaHoraFin: Date){
         return false;
     }
 }
   
 export class EnPreparacion implements Estado{
-  
-    constructor(){
-  
+    nombre: string;
+    ambito: string;
+
+    constructor(n: string, a: string){
+        this.nombre = n;
+        this.ambito = a;
     }
   
     crearEstado(){
-        return new ListoParaServir();
+        return new ListoParaServir('listoParaServir', 'detalle');
     }
   
-    crearHistorial(fechaHoraInicio: string, estado: Estado){
+    crearHistorial(fechaHoraInicio: Date, estado: Estado){
         return new HistorialEstado(fechaHoraInicio, estado);
     }
   
-    preparar(detalle: DetalleDePedido, fechaHoraFin: string){
+    preparar(detalle: DetalleDePedido, fechaHoraFin: Date){
         return false;
     }
   
-    finalizar(detalle: DetalleDePedido, fechaHoraFin: string){
+    finalizar(detalle: DetalleDePedido, fechaHoraFin: Date){
   
         var estado: Estado;
         var historial: HistorialEstado;
@@ -196,34 +212,37 @@ export class EnPreparacion implements Estado{
         return true;
     }
   
-    notificar(detalle: DetalleDePedido, fechaHoraFin: string){
+    notificar(detalle: DetalleDePedido, fechaHoraFin: Date){
         return false;
     }
 }
   
 export class ListoParaServir implements Estado{
-  
-    constructor(){
-  
+    nombre: string;
+    ambito: string;
+
+    constructor(n: string, a: string){
+        this.nombre = n;
+        this.ambito = a;
     }
   
     crearEstado(){
-        return new Notificado();
+        return new Notificado('not', 'detalle');
     }
   
-    crearHistorial(fechaHoraInicio: string, estado: Estado){
+    crearHistorial(fechaHoraInicio: Date, estado: Estado){
         return new HistorialEstado(fechaHoraInicio, estado)
     }    
   
-    preparar(detalle: DetalleDePedido, fechaHoraFin: string){
+    preparar(detalle: DetalleDePedido, fechaHoraFin: Date){
         return false;
     }
   
-    finalizar(detalle: DetalleDePedido, fechaHoraFin: string){
+    finalizar(detalle: DetalleDePedido, fechaHoraFin: Date){
         return false;
     }
   
-    notificar(detalle: DetalleDePedido, fechaHoraFin: string){
+    notificar(detalle: DetalleDePedido, fechaHoraFin: Date){
         var estado: Estado;
         var historial: HistorialEstado;
   
@@ -240,24 +259,27 @@ export class ListoParaServir implements Estado{
 }
   
 export class Notificado implements Estado{
-  
-    constructor(){
-  
+    nombre: string;
+    ambito: string;
+
+    constructor(n: string, a: string){
+        this.nombre = n;
+        this.ambito = a;
     }
   
     crearEstado(){
         return ;
     }
   
-    preparar(detalle: DetalleDePedido, fechaHoraFin: string){
+    preparar(detalle: DetalleDePedido, fechaHoraFin: Date){
         return false;
     }
   
-    finalizar(detalle: DetalleDePedido, fechaHoraFin: string){
+    finalizar(detalle: DetalleDePedido, fechaHoraFin: Date){
         return false;
     }
   
-    notificar(detalle: DetalleDePedido, fechaHoraFin: string){
+    notificar(detalle: DetalleDePedido, fechaHoraFin: Date){
         return false;
     }
 }
