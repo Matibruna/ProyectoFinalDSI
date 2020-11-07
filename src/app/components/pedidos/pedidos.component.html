@@ -1,50 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="pedidos.component.css">
-</head>
-<body>
-    <div class="wrapper">
-        <div class="sidebar">
-            <h2>PPAI</h2>
-            <ul>
-                <a></a>
-                <a class="btnMenuLateral" href="#">Pedidos</a>
-                <a class="btnMenuLateral"href="#">Reservas</a>
-                <a class="btnMenuLateral"href="#">Sectores</a>
-                <a class="btnMenuLateral"href="#">Plano de Mesas</a>
-                <a class="btnMenuLateral"href="#">Personal</a>
-                <a class="btnMenuLateral"href="#">Carta y Menu</a>
-                <a class="btnMenuLateral"href="#">Reportes y Estadisticas</a>
-            </ul> 
-            <div class="contacto">
-                <a href="#">Contactanos</a>
-            </div>
-        </div>
-        <div class="main_content">
-            <table>
-                <tr>
-                    <td>
-                        <button class="btnPedidos">Registrar Pedido de Mesa</button>
-                    </td>
-                    <td>
-                        <button class="btnPedidos">Finalizar Preparacion de Pedido</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <button class="btnPedidos">Modificar Pedido</button>
-                    </td>
-                    <td>
-                        <button class="btnPedidos">Consultar Pedidos</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">PPAI</div>
+      <div class="list-group list-group-flush">
+        <a href="#" class="list-group-item list-group-item-action bg-light">Pedidos</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Reservas</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Sectores</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Plano de Mesas</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Personal</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Cartas y Menu</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Reportes y Estadisticas</a>
+      </div>
+      <div class="contacto">
+        <a href="" class="list-group-item list-group-item-action bg-dark text-white">Contactos</a>
+      </div>
     </div>
-</body>
-</html>
-
-<router-outlet></router-outlet>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom col-12">
+        <button class="btn btn-secondary col-2" id="menu-toggle">Ocultar Menu Lateral</button>
+        <a class="cursoAño col-7" href="#">Projecto Practico de Aplicacion Integrador, Diseño de Sistemas, Curso 3K2, Año 2020         Grupo N° 6 y 9</a>
+        <a class="fechaHora col-3" href="#">Aca Iria La fecha y Hora</a>
+      </nav>
+      <div class="container-fluid">
+        <h1 class="mt-4">Simple Sidebar</h1>
+        <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
+        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  </div>
