@@ -30,6 +30,15 @@ export class Pedido{
         return this.nroPedido
     }
 
+    getDetalles(){
+        return this.detalles;
+    }
+
+    getDetalleNumero(x: number){
+        return this.detalles[x];
+    }
+
+
     setCantidadComensales(c: number){
         this.cantComensales = c;
     }
@@ -68,6 +77,10 @@ export class DetalleDePedido{
     getPrecio(){
         return this.precio;
     }
+
+    getNombreProducto(){
+        return this.nombreProducto;
+    }
   
     getUltimoEstado(){
         return this.historialEstado[this.historialEstado.length-1].getEstado();
@@ -86,11 +99,15 @@ export class DetalleDePedido{
     }
   
     finalizar(fechaHora: Date){
-        this.getUltimoEstado().finalizar(this, fechaHora);
+        return this.getUltimoEstado().finalizar(this, fechaHora);
     }
   
-    notificar(){
-        return ;
+    notificar(fechaHora: Date){
+        return this.getUltimoEstado().notificar(this, fechaHora);
+    }
+
+    preparar(fechaHora: Date){
+        return this.getUltimoEstado().preparar(this, fechaHora);
     }
   
   }
