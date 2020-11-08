@@ -1,60 +1,9 @@
-body {
-    overflow-x: hidden;
-  }
-  #sidebar-wrapper {
-    min-height: 100vh;
-    margin-left: -15rem;
-    -webkit-transition: margin .25s ease-out;
-    -moz-transition: margin .25s ease-out;
-    -o-transition: margin .25s ease-out;
-    transition: margin .25s ease-out;
-  }
-  #sidebar-wrapper .sidebar-heading {
-    padding: 0.875rem 1.25rem;
-    text-align: center;
-    font-size: 2rem;
-    height: 5rem;
-  }
-  #sidebar-wrapper .list-group {
-    width: 15rem;
-  }
-  #sidebar-wrapper .contacto {
-    position: absolute;
-    text-align: center;
-    background-color: #799dc2;
-    -webkit-transition: margin .25s ease-out;
-    -moz-transition: margin .25s ease-out;
-    -o-transition: margin .25s ease-out;
-    transition: margin .25s ease-out;
-    width: 15rem;
-    bottom: 0%;
-  }
-  #page-content-wrapper {
-    min-width: 100vw;
-  }
-  #wrapper.toggled #sidebar-wrapper {
-    margin-left: 0;
-  }
-  @media (min-width: 768px) {
-    #sidebar-wrapper {
-      margin-left: 0;
-    }
-    #page-content-wrapper {
-      min-width: 0;
-      width: 100%;
-    }
-    #wrapper.toggled #sidebar-wrapper {
-      margin-left: -15rem;
-    }
-  }
-  #page-content-wrapper > nav > .cursoAño{
-      margin-left: 5rem;
-      margin-right: 5rem;
-      text-align: left;
-  }
-  
-  #page-content-wrapper > nav > .fechaHora{
-    margin-right: 100px;
-    float: right;
-    text-align: right;
-  }
+table > tbody > tr > td > button{
+  background-color: rgb(157, 180, 184);
+  border-radius: .5rem;
+  text-align: center;
+  margin-left: 10rem;
+  margin-top: 12rem;
+  width: 40%;
+  height: 3rem;
+}

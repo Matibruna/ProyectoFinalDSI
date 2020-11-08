@@ -11,7 +11,6 @@ export class Pedido{
         this.fechaHora=fechaHoraPedido;
         this.nroPedido=nroPedido;
         this.mesa=mesa;
-        this.detalles = DetalleDePedido[0];
     }
 
     getCantidadComensales(){
@@ -44,7 +43,12 @@ export class Pedido{
     }
 
     agregarDetalle(detalle: DetalleDePedido){
+        if(this.detalles == null){
+            this.detalles =  [detalle]
+        }
+        else{
         this.detalles.push(detalle);
+        }
     }
 }
 
@@ -63,7 +67,7 @@ export class DetalleDePedido{
         this.fechaHora = fechaHora;
         this.precio = precio;
         this.nombreProducto = nomP;
-        this.historialEstado.push(new HistorialEstado(fechaHora, new PendienteDePreparacion('pendPrep', 'detalle')))
+        this.historialEstado = [new HistorialEstado(fechaHora, new PendienteDePreparacion('pendPrep', 'detalle'))];
     }   
   
     getCantidad(){
