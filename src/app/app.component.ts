@@ -8,11 +8,21 @@ import * as $ from 'jquery';
 })
 export class AppComponent{
 
-    ngOnInit(){
-   //Funcion ocultar menu lateral
-        $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-        });
-    }
- }
+  titulo = "Menu Principal";
+
+  visibleMenuPedido = false;
+  verFinPedido = false;
+
+  ngOnInit(){
+
+  //Funcion ocultar menu lateral
+    $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+    });
+  }
+
+  verMenuPedido(){
+      this.visibleMenuPedido = this.visibleMenuPedido ? false : true;
+  }
+}

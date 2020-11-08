@@ -9,11 +9,8 @@ export class PedidosComponent implements OnInit {
 
   constructor() { }
 
+  titulo = "Menu Principal";
+
   ngOnInit(){
-    //Funcion ocultar menu lateral
-         $("#menu-toggle").click(function(e) {
-         e.preventDefault();
-         $("#wrapper").toggleClass("toggled");
-         });
-     }
   }
+}

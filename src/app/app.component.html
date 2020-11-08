@@ -3,7 +3,7 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading">PPAI</div>
       <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action bg-light">Pedidos</a>
+        <a (click)="verMenuPedido()" class="list-group-item list-group-item-action bg-light">Pedidos</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Reservas</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Sectores</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Plano de Mesas</a>
@@ -24,8 +24,8 @@
         <a class="fechaHora col-3" href="#">Aca Iria La fecha y Hora</a>
       </nav>
       <div class="container-fluid">
-        <h1 class="mt-4">Selecciona Una Opcion:</h1>
-        <app-finalizar-pedido></app-finalizar-pedido>
+        <app-pedidos *ngIf="visibleMenuPedido"></app-pedidos>
+        <app-finalizar-pedido *ngIf="verFinPedido"></app-finalizar-pedido>
       </div>
     </div>
     <!-- /#page-content-wrapper -->

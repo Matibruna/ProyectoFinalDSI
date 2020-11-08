@@ -54,7 +54,6 @@ body {
 }
 
 #page-content-wrapper > nav > .fechaHora{
-  margin-right: 100px;
-  float: right;
-  text-align: right;
+  margin: 0;
+  text-align: start;
 }
