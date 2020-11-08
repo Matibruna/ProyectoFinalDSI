@@ -7,13 +7,12 @@ import * as $ from 'jquery';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent{
+
     ngOnInit(){
    //Funcion ocultar menu lateral
         $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
         });
-
-        
     }
  }
