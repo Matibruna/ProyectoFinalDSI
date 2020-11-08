@@ -21,13 +21,15 @@ body {
 #sidebar-wrapper .contacto {
   position: fixed;
   text-align: center;
-  background-color: #799dc2;
   -webkit-transition: margin .25s ease-out;
   -moz-transition: margin .25s ease-out;
   -o-transition: margin .25s ease-out;
   transition: margin .25s ease-out;
   width: 15rem;
   bottom: 0%;
+}
+#sidebar-wrapper .contacto img{
+  width: 15rem;
 }
 #page-content-wrapper {
   min-width: 100vw;
@@ -50,10 +52,11 @@ body {
 #page-content-wrapper > nav > .cursoAño{
     margin-left: 5rem;
     margin-right: 5rem;
-    text-align: left;
+    text-align: center;
+    color: rgb(34, 34, 34);
 }
 
 #page-content-wrapper > nav > .fechaHora{
   margin: 0;
-  text-align: start;
+  text-align: end;
 }

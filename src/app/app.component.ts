@@ -11,7 +11,6 @@ export class AppComponent{
   titulo = "Menu Principal";
 
   visibleMenuPedido = false;
-  verFinPedido = false;
 
   ngOnInit(){
 
@@ -25,4 +24,5 @@ export class AppComponent{
   verMenuPedido(){
       this.visibleMenuPedido = this.visibleMenuPedido ? false : true;
   }
+  
 }

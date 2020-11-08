@@ -1,17 +1,18 @@
-<div class="d-flex" id="wrapper">
+<div class="d-flex col-12" id="wrapper">
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading">PPAI</div>
       <div class="list-group list-group-flush">
-        <a (click)="verMenuPedido()" class="list-group-item list-group-item-action bg-light">Pedidos</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Reservas</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Sectores</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Plano de Mesas</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Personal</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Cartas y Menu</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Reportes y Estadisticas</a>
+        <a [routerLink]="['/menuPedidos']" class="list-group-item list-group-item-action bg-light">Pedidos</a>
+        <a [routerLink]="['/notAvailable']" class="list-group-item list-group-item-action bg-light">Reservas</a>
+        <a [routerLink]="['/notAvailable']" class="list-group-item list-group-item-action bg-light">Sectores</a>
+        <a [routerLink]="['/notAvailable']" class="list-group-item list-group-item-action bg-light">Plano de Mesas</a>
+        <a [routerLink]="['/notAvailable']" class="list-group-item list-group-item-action bg-light">Personal</a>
+        <a [routerLink]="['/notAvailable']" class="list-group-item list-group-item-action bg-light">Cartas y Menu</a>
+        <a [routerLink]="['/notAvailable']" class="list-group-item list-group-item-action bg-light">Reportes y Estadisticas</a>
       </div>
       <div class="contacto">
+        <img src="https://www.frc.utn.edu.ar/imagenes/logoutn.gif">
         <a href="" class="list-group-item list-group-item-action bg-dark text-white">Contactos</a>
       </div>
     </div>
@@ -21,11 +22,10 @@
       <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom col-12">
         <button class="btn btn-secondary col-2" id="menu-toggle">Ocultar Menu Lateral</button>
         <a class="cursoAño col-7" href="#">Projecto Practico de Aplicacion Integrador, Diseño de Sistemas, Curso 3K2, Año 2020         Grupo N° 6 y 9</a>
-        <a class="fechaHora col-3" href="#">Aca Iria La fecha y Hora</a>
+        <a class="fechaHora col-2" href="#">Aca Iria La fecha y Hora</a>
       </nav>
       <div class="container-fluid">
-        <app-pedidos *ngIf="visibleMenuPedido"></app-pedidos>
-        <app-finalizar-pedido *ngIf="verFinPedido"></app-finalizar-pedido>
+        <router-outlet></router-outlet>
       </div>
     </div>
     <!-- /#page-content-wrapper -->
