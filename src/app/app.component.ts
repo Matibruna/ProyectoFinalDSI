@@ -8,6 +8,14 @@ import * as $ from 'jquery';
 })
 export class AppComponent{
 
+  name = 'Angular 6';
+  date:Date;
+  constructor(){
+    setInterval(() => {
+      this.date = new Date()
+    }, 1000)
+  }
+
   titulo = "Menu Principal";
 
   visibleMenuPedido = false;

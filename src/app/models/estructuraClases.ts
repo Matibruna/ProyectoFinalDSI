@@ -1,12 +1,14 @@
+import { stringify } from 'querystring';
+
 //Clase Pedido
 export class Pedido{
     private cantComensales: number;
     private fechaHora: Date;
     private nroPedido: number;
-    private mesa: number;
+    private mesa: number[];
     private detalles: DetalleDePedido[];
 
-    constructor(cantC: number, fechaHoraPedido: Date, nroPedido: number, mesa: number){
+    constructor(cantC: number, fechaHoraPedido: Date, nroPedido: number, mesa: number[]){
         this.cantComensales=cantC;
         this.fechaHora=fechaHoraPedido;
         this.nroPedido=nroPedido;
@@ -19,6 +21,18 @@ export class Pedido{
 
     getMesa(){
         return this.mesa;
+    }
+
+    getMesaToString(){
+        let txt: string;
+        let y: string;
+        txt;
+        y = '';
+        for(let num in this.mesa){
+            if(txt == null){txt = 'Mesa N° '+num}
+            else{txt = txt + ' y '+num}
+        }
+        return txt;
     }
 
     getFechaHoraPedido(){
@@ -70,6 +84,11 @@ export class DetalleDePedido{
         this.historialEstado = [new HistorialEstado(fechaHora, new PendienteDePreparacion('pendPrep', 'detalle'))];
     }   
   
+    compare(a: DetalleDePedido, b: DetalleDePedido){
+        if(a.getfechaHora == b.getfechaHora){return 0;}
+        return (a.getfechaHora > b.getfechaHora) ? -1 : 1;
+    }
+
     getCantidad(){
         return this.cantidad;
     }
@@ -102,6 +121,10 @@ export class DetalleDePedido{
         this.historialEstado.push(h); 
     }
   
+    estaEnPreparacion(){
+        return this.historialEstado[this.historialEstado.length-1].getEstado().esEnPreparacion();
+    }
+
     finalizar(fechaHora: Date){
         return this.getUltimoEstado().finalizar(this, fechaHora);
     }
@@ -151,7 +174,10 @@ interface Estado{
     preparar(detalle: DetalleDePedido, fechaHoraFin: Date);
     finalizar(detalle: DetalleDePedido, fechaHoraFin: Date);
     notificar(detalle: DetalleDePedido, fechaHoraFin: Date);
-  
+    esPendienteDePreparacion();
+    esEnPreparacion();  
+    esListoParaServir();
+    esNotificado();
   }
   
 //ESTADOS CONCRETOS, Clases que Implementan la interfaz ESTADO.
@@ -164,6 +190,13 @@ export class PendienteDePreparacion implements Estado{
         this.ambito = a;
     }
   
+    esPendienteDePreparacion(){
+        return true;
+    }
+    esEnPreparacion(){return false;}
+    esListoParaServir(){return false;}
+    esNotificado(){return false;}
+
     crearEstado(){
         return new EnPreparacion('enPrep', 'detalle');
     }
@@ -204,6 +237,11 @@ export class EnPreparacion implements Estado{
         this.nombre = n;
         this.ambito = a;
     }
+
+    esPendienteDePreparacion(){return false;}
+    esEnPreparacion(){return true;}
+    esListoParaServir(){return false;}
+    esNotificado(){return false;}
   
     crearEstado(){
         return new ListoParaServir('listoParaServir', 'detalle');
@@ -247,6 +285,11 @@ export class ListoParaServir implements Estado{
         this.ambito = a;
     }
   
+    esPendienteDePreparacion(){return false;}
+    esEnPreparacion(){return false;}
+    esListoParaServir(){return true;}
+    esNotificado(){return false;}
+
     crearEstado(){
         return new Notificado('not', 'detalle');
     }
@@ -287,6 +330,11 @@ export class Notificado implements Estado{
         this.nombre = n;
         this.ambito = a;
     }
+
+    esPendienteDePreparacion(){return false;}
+    esEnPreparacion(){return false;}
+    esListoParaServir(){return false;}
+    esNotificado(){return true;}
   
     crearEstado(){
         return ;

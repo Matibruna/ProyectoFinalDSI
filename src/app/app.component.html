@@ -20,9 +20,9 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
       <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom col-12">
-        <button class="btn btn-secondary col-2" id="menu-toggle">Ocultar Menu Lateral</button>
-        <a class="cursoAño col-7" href="#">Projecto Practico de Aplicacion Integrador, Diseño de Sistemas, Curso 3K2, Año 2020         Grupo N° 6 y 9</a>
-        <a class="fechaHora col-2" href="#">Aca Iria La fecha y Hora</a>
+        <button class="btn col-2" id="menu-toggle">Menu</button>
+        <label class="cursoAño col-6" href="#">Projecto Practico de Aplicacion Integrador, Diseño de Sistemas, Curso 3K2, Año 2020         Grupo N° 6 y 9</label>
+        <label class="fechaHora col-4">{{date| date: "dd-MMM-yyyy"}} {{date | date: "HH:mm:ss"}}</label>
       </nav>
       <div class="container-fluid">
         <router-outlet></router-outlet>

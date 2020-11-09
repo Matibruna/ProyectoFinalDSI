@@ -57,6 +57,13 @@ body {
 }
 
 #page-content-wrapper > nav > .fechaHora{
-  margin: 0;
-  text-align: end;
+  padding-right: 15%;
+  text-align: center;
 }
+
+.btn {
+  background-color: #1A5276;
+  color: white; 
+  text-shadow: black 0.1em 0.1em 0.2em;
+}
+
