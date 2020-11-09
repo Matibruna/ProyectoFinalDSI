@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
 import { Pedido, DetalleDePedido } from '../../models/estructuraClases';
 import { Pedidos } from '../../models/pedidos.colection';
 
@@ -11,16 +10,42 @@ import { Pedidos } from '../../models/pedidos.colection';
 
 export class FinalizarPedidoComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+   }
 
   titulo = "Finalizar Pedido";
+  seleccionados = [];
   pedidos = Pedidos;
   detalles=this.buscarDetallesPedidoEnPreparacion();
   mostrarTabla=true;
 
   ngOnInit(): void {
-  
+    
+  }
 
+  estaSeleccionado(n: number){
+    for(let i=0; i<this.seleccionados.length; i++){
+      if(this.seleccionados[i] == n){return i;}
+    }
+    return -1;
+  }
+
+  onCheckChange(i: number){
+    if(this.seleccionados == null){
+      this.seleccionados = [i]
+    }
+    else{
+      let x = this.estaSeleccionado(i);
+      if(x >= 0){ this.seleccionados = this.seleccionados.filter( item => item!=x ); }
+      else { this.seleccionados.push(i)}
+    }
+  }
+
+  finalizar(){
+    for(let n of this.seleccionados){
+      this.detalles[n].Detalle.finalizar();
+    }
   }
 
   Comparator(a, b) {
@@ -47,18 +72,17 @@ export class FinalizarPedidoComponent implements OnInit {
               Mesa: mesa,
               Nom: detalle.getNombreProducto(),
               Cant: detalle.getCantidad(),
-              Date: Math.round(((tiempo/1000)/60)) 
+              Date: Math.round(((tiempo/1000)/60)),
+              Detalle: detalle 
               }]
           }
           else
             {
-              retornoDetalles.push({Mesa: mesa, Nom: detalle.getNombreProducto(), Cant: detalle.getCantidad(), Date: Math.round(((tiempo/1000)/60)) })
+              retornoDetalles.push({Mesa: mesa, Nom: detalle.getNombreProducto(), Cant: detalle.getCantidad(), Date: Math.round(((tiempo/1000)/60)), Detalle: detalle})
             }
         }
       }
     }
-    console.log(retornoDetalles)
-    console.log(retornoDetalles.sort(this.Comparator))
     return retornoDetalles.sort(this.Comparator);
   }
 }

@@ -16,13 +16,13 @@
                        <td>{{ fila?.Nom }}</td>
                        <td>{{ fila?.Cant }}</td>
                        <td>{{ fila?.Date }} minutos</td>
-                       <td><input type="checkbox" [formControlName]="i"></td>
+                       <td><input type="checkbox" (change)="onCheckChange(i)" ></td>
                    </tr>
                </tbody>
        </table>
     </div>
     <div class="botones">
         <button [routerLink]="['/menuPedidos']" class="boton"> Cancelar </button>
-        <button class="boton"> Siguiente </button>
+        <button (click)="finalizar()" class="boton"> Siguiente</button>
     </div>
 </div>
