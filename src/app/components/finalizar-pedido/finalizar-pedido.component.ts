@@ -43,10 +43,9 @@ export class FinalizarPedidoComponent implements OnInit {
               Date: (new Date(actualDate.getTime() - detalle.getfechaHora().getTime())).getMinutes()
               }]
           }
-
           else
             {
-              retornoDetalles.push([{Mesa: mesa, Nom: detalle.getNombreProducto(), Cant: detalle.getCantidad(), Date: (new Date(actualDate.getTime() - detalle.getfechaHora().getTime())).getMinutes()}])
+              retornoDetalles.push({Mesa: mesa, Nom: detalle.getNombreProducto(), Cant: detalle.getCantidad(), Date: (new Date(actualDate.getTime() - detalle.getfechaHora().getTime())).getMinutes()})
             }
         }
       }

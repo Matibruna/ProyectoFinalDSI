@@ -28,9 +28,9 @@ export class Pedido{
         let y: string;
         txt;
         y = '';
-        for(let num in this.mesa){
-            if(txt == null){txt = 'Mesa N° '+num}
-            else{txt = txt + ' y '+num}
+        for(let i = 0; i<this.mesa.length;i++){
+            if(txt == null){txt = 'Mesa N° '+this.mesa[i]}
+            else{txt = txt + ' y '+this.mesa[i]}
         }
         return txt;
     }
