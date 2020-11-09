@@ -21,3 +21,21 @@
     color: white; 
     text-shadow: black 0.1em 0.1em 0.2em;
 }
+
+.textoConfirmacion{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-self: center;
+}
+
+.detalles{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-color: #1A5276;
+    list-style:none;
+    text-align: center;
+    justify-content: center;
+}

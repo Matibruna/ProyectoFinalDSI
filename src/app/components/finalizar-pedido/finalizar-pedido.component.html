@@ -27,14 +27,15 @@
     </div>
 </div>            
 <div *ngIf="!mostrarTabla">
-    <div class="botones">
-        <label>Seguro que quiere confirmar los detalles:</label>
-        <ul *ngFor="let fila of detallesAConfirmar()">
+    <label class="textoConfirmacion">Seguro que quiere confirmar los detalles:</label>
+        <ul class="detalles" *ngFor="let fila of detallesAConfirmar()">
             <li>{{fila.Mesa}}</li>
             <li>{{fila.Nom}}</li>
-            <li>{{fila.Cant}}</li>
+            <li>Cantidad: {{fila.Cant}}</li>
         </ul>
+    <div class="botones">
         <button (click)="cancelarConfirmacion()" class="boton"> Cancelar </button>
         <button (click)="tomarConfirmarElaboracion()" [routerLink]="['/menuPedidos']" class="boton"> Siguiente</button>
     </div>
 </div>
+    
