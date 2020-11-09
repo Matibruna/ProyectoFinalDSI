@@ -12,4 +12,7 @@ export class MantenimientoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  enviarNotificacion(){
+    alert('Notificacion enviada, esta sera revisada lo antes posible.');
+  }
 }

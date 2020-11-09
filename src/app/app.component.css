@@ -25,11 +25,11 @@ body {
   -moz-transition: margin .25s ease-out;
   -o-transition: margin .25s ease-out;
   transition: margin .25s ease-out;
-  width: 15rem;
+  width: 13rem;
   bottom: 0%;
 }
 #sidebar-wrapper .contacto img{
-  width: 15rem;
+  width: 13rem;
 }
 #page-content-wrapper {
   min-width: 100vw;

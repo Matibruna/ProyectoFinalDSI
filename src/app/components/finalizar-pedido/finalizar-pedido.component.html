@@ -11,18 +11,18 @@
                </tr>
                </thead>
                <tbody>
-                   <tr *ngFor="let fila of detalles">
+                   <tr *ngFor="let fila of detalles; let i = index">
                        <td>{{ fila?.Mesa }}</td>
                        <td>{{ fila?.Nom }}</td>
                        <td>{{ fila?.Cant }}</td>
                        <td>{{ fila?.Date }} minutos</td>
-                       <td><input type="checkbox"></td>
+                       <td><input type="checkbox" [formControlName]="i"></td>
                    </tr>
                </tbody>
        </table>
     </div>
     <div class="botones">
-        <button class="boton"> Cancelar </button>
+        <button [routerLink]="['/menuPedidos']" class="boton"> Cancelar </button>
         <button class="boton"> Siguiente </button>
     </div>
 </div>
