@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container" *ngIf="mostrarTabla">
     <div class="table">
-       <table class="table-hover table-inverse table-responsive" *ngIf="mostrarTabla">
+       <table class="table-hover table-inverse table-responsive" >
            <thead class="thead-inverse">
                <tr>
                     <th>Mesa</th>
@@ -9,20 +9,32 @@
                     <th>Tiempo de Espera</th>
                     <th>Seleccion</th>
                </tr>
-               </thead>
-               <tbody>
-                   <tr *ngFor="let fila of detalles; let i = index">
-                       <td>{{ fila?.Mesa }}</td>
-                       <td>{{ fila?.Nom }}</td>
-                       <td>{{ fila?.Cant }}</td>
-                       <td>{{ fila?.Date }} minutos</td>
-                       <td><input type="checkbox" (change)="onCheckChange(i)" ></td>
-                   </tr>
-               </tbody>
+            </thead>
+            <tbody>
+                <tr *ngFor="let fila of mostrarDatosDetallePedidoEnPreparacion(); let i = index">
+                    <td>{{ fila?.Mesa }}</td>
+                    <td>{{ fila?.Nom }}</td>
+                    <td>{{ fila?.Cant }}</td>
+                    <td>{{ fila?.Date }} minutos</td>
+                    <td><input type="checkbox" (change)="onCheckChange(i)" ></td>
+                </tr>
+            </tbody>
        </table>
     </div>
     <div class="botones">
         <button [routerLink]="['/menuPedidos']" class="boton"> Cancelar </button>
-        <button (click)="finalizar()" class="boton"> Siguiente</button>
+        <button (click)="solicitarConfirmacionElaboracionProducto()" class="boton"> Siguiente</button>
+    </div>
+</div>            
+<div *ngIf="!mostrarTabla">
+    <div class="botones">
+        <label>Seguro que quiere confirmar los detalles:</label>
+        <ul *ngFor="let fila of detallesAConfirmar()">
+            <li>{{fila.Mesa}}</li>
+            <li>{{fila.Nom}}</li>
+            <li>{{fila.Cant}}</li>
+        </ul>
+        <button (click)="cancelarConfirmacion()" class="boton"> Cancelar </button>
+        <button (click)="tomarConfirmarElaboracion()" [routerLink]="['/menuPedidos']" class="boton"> Siguiente</button>
     </div>
 </div>
