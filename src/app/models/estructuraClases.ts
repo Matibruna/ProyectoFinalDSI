@@ -1,4 +1,107 @@
-import { stringify } from 'querystring';
+//Clase Gestor
+export class GestorFinalizarPreparacionPedido{
+
+    private pedidos : Pedido[];
+    private detalles: any[];
+    seleccionados: number[];
+  
+    constructor(pedidos: Pedido[]){
+        this.pedidos = pedidos;
+        this.detalles = this.buscarDetallesPedidoEnPreparacion();
+    }
+  
+    getDetalles(){
+      return this.detalles.sort(this.Comparator);
+    }
+  
+    getDetallesPreConfirmados(){
+      if(this.seleccionados == null || this.seleccionados.length==0){return []}
+      let preSeleccionados: any[];
+      for(let n of this.seleccionados){
+        if(preSeleccionados == null){preSeleccionados = [this.detalles[n]]}
+        else{preSeleccionados.push(this.detalles[n])}
+      }
+      return preSeleccionados;
+      }
+  
+    detalleDePedidoSeleccionado(i: number){
+      if(this.seleccionados == null){
+        this.seleccionados = [i]
+      }
+      else{
+        let x = this.estaSeleccionado(i);
+        if(x != -1){ 
+          console.log(this.seleccionados)
+            this.seleccionados.splice(x, 1); 
+          console.log(this.seleccionados)
+        }
+        else{ 
+          this.seleccionados.push(i)
+        }
+      }
+    }
+  
+    confirmacionElaboracion(){
+      this.actualizarEstadoDetallePedido();
+    }
+  
+    actualizarEstadoDetallePedido(){
+      for(let n of this.seleccionados){
+        this.detalles[n].Detalle.finalizar();
+        this.detalles[n].Detalle.notificar();
+      }
+    }
+  
+    ordenarSegunMayorTiempoDeEspera(){
+      this.detalles.sort(this.Comparator) 
+    }
+  
+    buscarDetallesPedidoEnPreparacion(){
+      let actualDate = new Date();
+      let mesa : string;
+      let retornoDetalles: any[];
+      let ped: Pedido;
+    
+      if(this.pedidos == null || this.pedidos == undefined){return;}
+      for(ped of this.pedidos){
+        mesa = ped.getMesaToString();
+        let detalle: DetalleDePedido;
+        for (detalle of ped.getDetalles()){
+          if(detalle.estaEnPreparacion()){
+            var tiempo = (actualDate.getTime() - detalle.getfechaHora().getTime())
+            if(retornoDetalles == null)
+            {
+              retornoDetalles = [{
+                Mesa: mesa,
+                Nom: detalle.getNombreProducto(),
+                Cant: detalle.getCantidad(),
+                Date: Math.round(((tiempo/1000)/60)),
+                Detalle: detalle 
+                }]
+            }
+            else
+            {
+              retornoDetalles.push({Mesa: mesa, Nom: detalle.getNombreProducto(), Cant: detalle.getCantidad(), Date: Math.round(((tiempo/1000)/60)), Detalle: detalle})
+            }
+          }
+        }
+      }
+      return retornoDetalles;
+    }
+  
+    Comparator(a, b) {
+      if (a.Date > b.Date) return -1;
+      if (a.Date < b.Date) return 1;
+      return 0;
+    }
+  
+    estaSeleccionado(n: number){
+      for(let i=0; i<this.seleccionados.length; i++){
+        if(this.seleccionados[i] == n){return i;}
+      }
+      return -1;
+    }
+  }
 
 //Clase Pedido
 export class Pedido{
