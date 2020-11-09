@@ -23,6 +23,12 @@ export class FinalizarPedidoComponent implements OnInit {
 
   }
 
+  Comparator(a, b) {
+    if (a.Date > b.Date) return -1;
+    if (a.Date < b.Date) return 1;
+    return 0;
+  }
+
   buscarDetallesPedidoEnPreparacion(){
     let actualDate = new Date();
     let mesa : string;
@@ -34,22 +40,25 @@ export class FinalizarPedidoComponent implements OnInit {
       let detalle: DetalleDePedido;
       for (detalle of ped.getDetalles()){
         if(detalle.estaEnPreparacion()){
+          var tiempo = (actualDate.getTime() - detalle.getfechaHora().getTime())
           if(retornoDetalles == null)
           {
             retornoDetalles = [{
               Mesa: mesa,
               Nom: detalle.getNombreProducto(),
               Cant: detalle.getCantidad(),
-              Date: (new Date(actualDate.getTime() - detalle.getfechaHora().getTime())).getMinutes()
+              Date: Math.round(((tiempo/1000)/60)) 
               }]
           }
           else
             {
-              retornoDetalles.push({Mesa: mesa, Nom: detalle.getNombreProducto(), Cant: detalle.getCantidad(), Date: (new Date(actualDate.getTime() - detalle.getfechaHora().getTime())).getMinutes()})
+              retornoDetalles.push({Mesa: mesa, Nom: detalle.getNombreProducto(), Cant: detalle.getCantidad(), Date: Math.round(((tiempo/1000)/60)) })
             }
         }
       }
     }
-    return retornoDetalles;
+    console.log(retornoDetalles)
+    console.log(retornoDetalles.sort(this.Comparator))
+    return retornoDetalles.sort(this.Comparator);
   }
 }
