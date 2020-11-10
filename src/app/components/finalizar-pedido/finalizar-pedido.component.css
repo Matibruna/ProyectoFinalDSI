@@ -17,6 +17,8 @@
     justify-content: space-around;
 }
 .boton{
+    width: 7em;
+    height: 3em;
     background-color:#1A5276;
     color: white; 
     text-shadow: black 0.1em 0.1em 0.2em;
@@ -36,6 +38,12 @@
     margin-top: 1rem;
     margin-bottom: 3rem;
     list-style:none;
+    text-align: center;
+    justify-content: center;
+}
+
+.botonConfirmar{
+    margin: 3rem;
     text-align: center;
     justify-content: center;
 }

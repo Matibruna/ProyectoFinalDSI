@@ -17,6 +17,7 @@ export class FinalizarPedidoComponent implements OnInit {
   titulo = "Finalizar Pedido";
   gestor = new GestorFinalizarPreparacionPedido(Pedidos);
   mostrarTabla=true;
+  mostrarMensaje=false;
   mostrarConfirmacion=false;
 
   ngOnInit(): void {
@@ -42,6 +43,7 @@ export class FinalizarPedidoComponent implements OnInit {
   }
 
   tomarConfirmarElaboracion(){
+    this.mostrarMensaje=true;
     this.gestor.confirmacionElaboracion();
   }
 

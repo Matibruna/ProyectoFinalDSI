@@ -7,6 +7,7 @@ import * as $ from 'jquery';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent{
+  title="PPAI Diseño de Sistemas"
 
   name = 'Angular 6';
   date:Date;

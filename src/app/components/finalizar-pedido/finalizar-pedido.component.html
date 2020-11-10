@@ -26,7 +26,7 @@
         <button (click)="solicitarConfirmacionElaboracionProducto()" class="boton"> Siguiente</button>
     </div>
 </div>            
-<div *ngIf="!mostrarTabla">
+<div *ngIf="!mostrarTabla && !mostrarMensaje">
     <label class="textoConfirmacion">Seguro que quiere confirmar los detalles:</label>
         <ul class="detalles" *ngFor="let fila of detallesAConfirmar()">
             <li>{{fila.Mesa}}</li>
@@ -34,7 +34,11 @@
             <li>Cantidad: {{fila.Cant}}</li>
         </ul>
     <div class="botones">
-        <button (click)="cancelarConfirmacion()" class="boton"> Cancelar </button>
-        <button (click)="tomarConfirmarElaboracion()" [routerLink]="['/menuPedidos']" class="boton"> Siguiente</button>
+        <button (click)="cancelarConfirmacion()" class="boton">Cancelar</button>
+        <button (click)="tomarConfirmarElaboracion()" class="boton"> Siguiente</button>
     </div>
+</div>
+<div *ngIf="mostrarMensaje" class="detalles">
+    <label class="textoConfirmacion">Pedidos marcados como Finalizados y Notificados correctamente.</label>
+    <button class="boton botonConfirmar" [routerLink]="['/menuPedidos']" >Confirmar</button>
 </div>
