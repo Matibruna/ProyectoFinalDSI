@@ -1,4 +1,4 @@
-//Clase Gestor
+//Clase GestorFinalizarPreparacionPedido, administra toda la logica relacionada con el caso de uso particular.
 export class GestorFinalizarPreparacionPedido{
 
     private pedidos : Pedido[];

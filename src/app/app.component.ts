@@ -7,7 +7,7 @@ import * as $ from 'jquery';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent{
-  title="PPAI Diseño de Sistemas"
+  title="Restaurante PPAI"
 
   name = 'Angular 6';
   date:Date;
@@ -19,8 +19,6 @@ export class AppComponent{
 
   titulo = "Menu Principal";
 
-  visibleMenuPedido = false;
-
   ngOnInit(){
 
   //Funcion ocultar menu lateral
@@ -28,10 +26,5 @@ export class AppComponent{
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
     });
-  }
-
-  verMenuPedido(){
-      this.visibleMenuPedido = this.visibleMenuPedido ? false : true;
-  }
-  
+  }  
 }

@@ -67,3 +67,10 @@ body {
   text-shadow: black 0.1em 0.1em 0.2em;
 }
 
+.sidebarExt{
+  position: absolute;
+  margin-left: 15rem;
+  margin-top: 13rem;
+  width: 15rem;
+}
+
